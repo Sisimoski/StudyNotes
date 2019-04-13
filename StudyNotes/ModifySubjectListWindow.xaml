@@ -1,0 +1,24 @@
+﻿<Window x:Class="StudyNotes.ModifySubjectListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudyNotes"
+        mc:Ignorable="d"
+        Title="Modyfikuj listę przedmiotów" Height="245" Width="450" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow">
+    <Grid>
+        <Grid.Resources>
+            <XmlDataProvider x:Key="SubjectData" Source="SubjectList.xml" XPath="/Subjects/Subject"/>
+        </Grid.Resources>
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0">
+                <Button Name="AddSubjectButton" Margin="0,0,0,5" Click="AddSubjectButton_Click">Dodaj przedmiot</Button>
+                <Button Name="DeleteSubjectButton" Click="DeleteSubjectButton_Click">Usuń przedmiot</Button>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Left">
+                <ListBox x:Name="SubjectList" Margin="0,0,0,0" ItemsSource="{Binding Source={StaticResource SubjectData}}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="175" SelectionChanged="SubjectList_SelectionChanged"></ListBox>
+                <TextBox x:Name="InputNewSubject" Text="Wpisz nowy przedmiot..."/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,84 @@
+﻿<Window x:Class="StudyNotes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudyNotes"
+        mc:Ignorable="d"
+        Title="StudyNotes" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="app_icons/appicon2.ico" Closing="Window_Closing">
+    <Window.Resources>
+        <XmlDataProvider x:Key="SubjectData" Source="SubjectList.xml"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
+    </Window.CommandBindings>
+    <Grid DataContext="{Binding Source={StaticResource SubjectData}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225" MinWidth="180" MaxWidth="600"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+        <Border Grid.Column="0" Background="#FFDDEFFF" BorderBrush="#FFADBECD" BorderThickness="1" CornerRadius="3"/>
+        <ListBox x:Name="NotesList" Margin="10,86,10,10.5" SelectionChanged="NotesList_SelectionChanged"/>
+        <TextBox x:Name="SearchBox" Height="23" Margin="10,10,60,0" TextWrapping="Wrap" Text="Szukaj notatek..." VerticalAlignment="Top"/>
+        <Button x:Name="NewNoteButton" Margin="0,10,35,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="NewNoteButton_Click">
+            <Image Source="/icons/page_add.png" Stretch="None"></Image>
+        </Button>
+        <Button x:Name="DeleteNoteButton" Margin="0,10,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Image Source="/icons/page_delete.png" Stretch="None"></Image>
+        </Button>
+        <Label Content="Wybierz przedmiot:" Margin="10,33,10.5,0" Foreground="Black" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1,0,0,0"/>
+        <ComboBox x:Name="SelectSubject" Margin="10,59,35,0" Height="22" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource SubjectData}, XPath=/Subjects/Subject}" SelectedIndex="0" SelectionChanged="SelectSubject_SelectionChanged">
+            <!--<Button x:Name="ModifySubjectListButton" Content="Modyfikuj listę przedmiotów..." Width="195" Click="ModifySubjectListButton_Click"/>-->
+        </ComboBox>
+        <Button x:Name="ModifySubjectListButton" Margin="0,58,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ModifySubjectListButton_Click">
+            <Image Source="/icons/folder_edit.png" Stretch="None"></Image>
+        </Button>
+        <DockPanel Grid.Column="2" Margin="0">
+            <ToolBarTray Grid.Column="1" VerticalAlignment="Top" DockPanel.Dock="Top">
+                <ToolBar x:Name="FontToolbar" BandIndex="1">
+                    <Image Source="/icons/style.png" Margin="5,0"></Image>
+                    <ComboBox Name="fontFamilySelector" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged"/>
+                    <ComboBox Name="fontSizeSelector" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged"/>
+                    <Separator/>
+                    <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
+                        <Image Source="/icons/text_bold.png" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
+                        <Image Source="/icons/text_italic.png" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
+                        <Image Source="/icons/text_underline.png" Width="16" Height="16" />
+                    </ToggleButton>
+                </ToolBar>
+                <ToolBar x:Name="EditingCommandsToolbar" BandIndex="0">
+                    <Button x:Name="SaveButton" Command="ApplicationCommands.Save" ToolTip="Zapisz">
+                        <Image Source="/icons/disk.png"/>
+                    </Button>
+                    <Button x:Name="PrintButton" ToolTip="Drukuj" Click="PrintButton_Click">
+                        <Image Source="/icons/printer.png"/>
+                    </Button>
+                    <Separator/>
+                    <Button x:Name="UndoButton" Command="ApplicationCommands.Undo" ToolTip="Cofnij">
+                        <Image Source="/icons/arrow_undo.png"/>
+                    </Button>
+                    <Button x:Name="RedoButton" Command="ApplicationCommands.Redo" ToolTip="Przywróć">
+                        <Image Source="/icons/arrow_redo.png"/>
+                    </Button>
+                    <Separator/>
+                    <Button x:Name="CutButton" Command="ApplicationCommands.Cut" ToolTip="Wytnij">
+                        <Image Source="/icons/cut.png"/>
+                    </Button>
+                    <Button x:Name="CopyButton" Command="ApplicationCommands.Copy" ToolTip="Kopiuj">
+                        <Image Source="/icons/page_copy.png"/>
+                    </Button>
+                    <Button x:Name="PasteButton" Command="ApplicationCommands.Paste" ToolTip="Wklej">
+                        <Image Source="/icons/page_paste.png"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <RichTextBox x:Name="MainTextEditor" Grid.Column="1" Margin="5" SelectionChanged="MainTextEditor_SelectionChanged" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" SpellCheck.IsEnabled="True" AcceptsTab="True" Block.LineHeight="6" DockPanel.Dock="Top" UseLayoutRounding="True" TextChanged="MainTextEditor_TextChanged"/>
+        </DockPanel>
+    </Grid>
+</Window>
