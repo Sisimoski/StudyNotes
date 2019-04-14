@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>app_icons\appicon2.ico</ApplicationIcon>
+    <ApplicationIcon>app_icons\logo_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,11 +134,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="app_icons\text_bold.png" />
-    <Resource Include="app_icons\text_italic.png" />
-    <Resource Include="app_icons\text_underline.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\accept.png" />
@@ -1146,6 +1141,7 @@
     <Resource Include="app_icons\appicon2.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="app_icons\logo_icon.ico" />
     <Content Include="SubjectList.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
