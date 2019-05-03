@@ -64,6 +64,7 @@ namespace StudyNotes
             //}
             selectedSubjectItem = SubjectList.SelectedItem.ToString();
             LocalData.CurrentLocalData.Subjects.Remove(selectedSubjectItem);
+            LocalData.CurrentLocalData.SaveXmlData();
         }
     }
 }

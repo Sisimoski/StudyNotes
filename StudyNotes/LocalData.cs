@@ -25,15 +25,15 @@ namespace StudyNotes
 
         string startupPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "SubjectList.xml");
 
-        public List<string> AllSubjects;
+        //public List<string> AllSubjects;
 
         public ObservableCollection<string> Subjects;
 
         public LocalData()
         {
-            AllSubjects = new List<string>();
+            //AllSubjects = new List<string>();
+            Subjects = new ObservableCollection<string>();
             LoadXmlData();
-            Subjects = new ObservableCollection<string>(AllSubjects);
         }
 
         private void LoadXmlData()
@@ -45,10 +45,10 @@ namespace StudyNotes
                 using (FileStream fs = new FileStream(startupPath, FileMode.Open, FileAccess.Read))
                 {
                     xmlDocument.Load(fs);
-                    xmlNodeList = xmlDocument.GetElementsByTagName("Subject");
+                    xmlNodeList = xmlDocument.GetElementsByTagName("string");
                     foreach (XmlNode item in xmlNodeList)
                     {
-                        AllSubjects.Add(item.InnerText);
+                        Subjects.Add(item.InnerText);
                     }
                     fs.Close();
                 }
@@ -60,13 +60,13 @@ namespace StudyNotes
 
         public void SaveXmlData()
         {
-            var serializer = new XmlSerializer(typeof(List<string>));
+            var serializer = new XmlSerializer(typeof(ObservableCollection<string>));
 
             try
             {
                 using (var stream = File.Open(startupPath, FileMode.Create))
                 {
-                    serializer.Serialize(stream, AllSubjects);
+                    serializer.Serialize(stream, Subjects);
                     stream.Close();
                 }
             } catch (Exception ex)
