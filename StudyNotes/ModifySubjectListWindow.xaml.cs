@@ -29,7 +29,6 @@ namespace StudyNotes
         {
             InitializeComponent();
             SubjectList.ItemsSource = LocalData.CurrentLocalData.Subjects;
-            this.DataContext = LocalData.CurrentLocalData.Subjects;
         }
 
         private void AddSubjectButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +46,7 @@ namespace StudyNotes
             //    dataProvider.Document = document;
             //    dataProvider.Refresh();
             //}
-            LocalData.CurrentLocalData.Subjects.Add(new LocalData.SubjectsList(InputNewSubject.Text));
+            LocalData.CurrentLocalData.Subjects.Add(InputNewSubject.Text);
             LocalData.CurrentLocalData.SaveXmlData();
         }
 
@@ -64,8 +63,7 @@ namespace StudyNotes
             //    document.Save(xmlLocation);
             //}
             selectedSubjectItem = SubjectList.SelectedItem.ToString();
-            LocalData.CurrentLocalData.Subjects.Remove(new LocalData.SubjectsList(selectedSubjectItem));
-            LocalData.CurrentLocalData.SaveXmlData();
+            LocalData.CurrentLocalData.Subjects.Remove(selectedSubjectItem);
         }
     }
 }

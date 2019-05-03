@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -17,39 +16,23 @@ namespace StudyNotes
 
         // This will get the current WORKING directory (i.e. \bin\Debug)
         static string workingDirectory = Environment.CurrentDirectory;
-        // or: Directory.GetCurrentDirectory() gives the same result
 
         // This will get the current PROJECT directory
         static string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
 
         static string xmlLocation = System.IO.Path.Combine(projectDirectory, "SubjectList.xml");
 
-        static string executableLocation = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        static string xmlLocationEXE = System.IO.Path.Combine(executableLocation, "SubjectList.xml");
-
         string startupPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "SubjectList.xml");
 
-        //public List<string> AllSubjects;
+        public List<string> AllSubjects;
 
-        public ObservableCollection<SubjectsList> Subjects;
-
-        //public ObservableCollection<SubjectsList> subjectsLists;
-
-        public class SubjectsList
-        {
-            public string Subject { get; set; }
-            public SubjectsList() { }
-            public SubjectsList(string nameOfSubject)
-            {
-                this.Subject = nameOfSubject;
-            }
-        }
+        public ObservableCollection<string> Subjects;
 
         public LocalData()
         {
-            //AllSubjects = new List<string>();
-            Subjects = new ObservableCollection<SubjectsList>();
+            AllSubjects = new List<string>();
             LoadXmlData();
+            Subjects = new ObservableCollection<string>(AllSubjects);
         }
 
         private void LoadXmlData()
@@ -62,20 +45,20 @@ namespace StudyNotes
                 xmlNodeList = xmlDocument.GetElementsByTagName("Subject");
                 foreach (XmlNode item in xmlNodeList)
                 {
-                    Subjects.Add(new SubjectsList(item.InnerText));
+                    AllSubjects.Add(item.InnerText);
                 }
             }
         }
 
         public void SaveXmlData()
         {
-            var serializer = new XmlSerializer(typeof(ObservableCollection<SubjectsList>));
+            var serializer = new XmlSerializer(typeof(List<string>));
 
             using (var stream = File.Open(startupPath, FileMode.Create))
             {
-                serializer.Serialize(stream, Subjects);
+                serializer.Serialize(stream, AllSubjects);
             }
-            
+
             //XmlSerializer serializer = new XmlSerializer(typeof());
 
             //using (FileStream stream = File.OpenWrite(myXmlFilePath))
