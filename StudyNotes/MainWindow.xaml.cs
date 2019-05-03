@@ -34,6 +34,12 @@ namespace StudyNotes
             InitializeFontOnStartup();
             DefaultWelcomeDocument();
             SelectSubject.SelectedIndex = 0;
+            InitializeLocalDataFromXmls();
+        }
+
+        private void InitializeLocalDataFromXmls()
+        {
+            SelectSubject.ItemsSource = LocalData.CurrentLocalData.Subjects;
         }
 
         void addNotes()
@@ -240,12 +246,11 @@ namespace StudyNotes
                 MainTextEditor.Document.Blocks.Clear();
                 MainTextEditor.Selection.Load(fileStream, DataFormats.Rtf);
                 fileStream.Close();
+                _needsToBeSaved = false;
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                
             }
-
-
         }
 
         private void SelectSubject_SelectionChanged(object sender, SelectionChangedEventArgs e)

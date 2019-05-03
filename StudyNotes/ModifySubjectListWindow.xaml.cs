@@ -23,59 +23,48 @@ namespace StudyNotes
     /// </summary>
     public partial class ModifySubjectListWindow : Window
     {
-        // This will get the current WORKING directory (i.e. \bin\Debug)
-        static string workingDirectory = Environment.CurrentDirectory;
-        // or: Directory.GetCurrentDirectory() gives the same result
-
-        // This will get the current PROJECT directory
-        static string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-        static string xmlLocation = System.IO.Path.Combine(projectDirectory, "SubjectList.xml");
-
-        //string executableLocation = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        //string xmlLocation = System.IO.Path.Combine(executableLocation, "SubjectList.xml");
-
         string selectedSubjectItem;
 
         public ModifySubjectListWindow()
         {
             InitializeComponent();
+            SubjectList.ItemsSource = LocalData.CurrentLocalData.Subjects;
         }
 
         private void AddSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            XmlDocument document = new XmlDocument();
-            document.Load(xmlLocation);
-            XmlNode subjectNode = document.CreateNode(XmlNodeType.Element, "Subject", "");
-            subjectNode.InnerText = InputNewSubject.Text;
-            document.DocumentElement.AppendChild(subjectNode);
-            document.Save(xmlLocation);
+            //XmlDocument document = new XmlDocument();
+            //document.Load(xmlLocation);
+            //XmlNode subjectNode = document.CreateNode(XmlNodeType.Element, "Subject", "");
+            //subjectNode.InnerText = InputNewSubject.Text;
+            //document.DocumentElement.AppendChild(subjectNode);
+            //document.Save(xmlLocation);
 
-            XmlDataProvider dataProvider = SubjectList.FindResource("SubjectData") as XmlDataProvider;
-            if (dataProvider != null && dataProvider.Document != null)
-            {
-                dataProvider.Document = document;
-                dataProvider.Refresh();
-            }
+            //XmlDataProvider dataProvider = SubjectList.FindResource("SubjectData") as XmlDataProvider;
+            //if (dataProvider != null && dataProvider.Document != null)
+            //{
+            //    dataProvider.Document = document;
+            //    dataProvider.Refresh();
+            //}
+            LocalData.CurrentLocalData.Subjects.Add(InputNewSubject.Text);
+            LocalData.CurrentLocalData.SaveXmlData();
         }
 
         private void DeleteSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            XmlDocument document = new XmlDocument();
-            document.Load(xmlLocation);
-            foreach(XmlNode node in document.SelectNodes("/Subjects/Subject"))
-            {
-                if (node.InnerText == selectedSubjectItem)
-                {
-                    node.ParentNode.RemoveChild(node);
-                }
-                document.Save(xmlLocation);
-            }
-        }
-
-        private void SubjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            //XmlDocument document = new XmlDocument();
+            //document.Load(xmlLocation);
+            //foreach(XmlNode node in document.SelectNodes("/Subjects/Subject"))
+            //{
+            //    if (node.InnerText == selectedSubjectItem)
+            //    {
+            //        node.ParentNode.RemoveChild(node);
+            //    }
+            //    document.Save(xmlLocation);
+            //}
             selectedSubjectItem = SubjectList.SelectedItem.ToString();
+            LocalData.CurrentLocalData.Subjects.Remove(selectedSubjectItem);
+            LocalData.CurrentLocalData.SaveXmlData();
         }
     }
 }
