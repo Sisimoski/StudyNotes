@@ -29,7 +29,7 @@
             <Image Source="/icons/page_delete.png" Stretch="None"></Image>
         </Button>
         <Label Content="Wybierz przedmiot:" Margin="10,33,10.5,0" Foreground="Black" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1,0,0,0"/>
-        <ComboBox x:Name="SelectSubject" Margin="10,59,35,0" Height="22" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource SubjectData}, XPath=/Subjects/Subject}" SelectedIndex="0" SelectionChanged="SelectSubject_SelectionChanged">
+        <ComboBox x:Name="SelectSubject" Margin="10,59,35,0" Height="22" VerticalAlignment="Top" ItemsSource="{Binding}" SelectedIndex="0" SelectionChanged="SelectSubject_SelectionChanged">
             <!--<Button x:Name="ModifySubjectListButton" Content="Modyfikuj listę przedmiotów..." Width="195" Click="ModifySubjectListButton_Click"/>-->
         </ComboBox>
         <Button x:Name="ModifySubjectListButton" Margin="0,58,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ModifySubjectListButton_Click" ToolTip="Modyfikuj listę przedmiotów">

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -39,14 +40,21 @@ namespace StudyNotes
         {
             XmlDocument xmlDocument = new XmlDocument();
             XmlNodeList xmlNodeList;
-            using (FileStream fs = new FileStream(startupPath, FileMode.Open, FileAccess.Read))
+            try
             {
-                xmlDocument.Load(fs);
-                xmlNodeList = xmlDocument.GetElementsByTagName("Subject");
-                foreach (XmlNode item in xmlNodeList)
+                using (FileStream fs = new FileStream(startupPath, FileMode.Open, FileAccess.Read))
                 {
-                    AllSubjects.Add(item.InnerText);
+                    xmlDocument.Load(fs);
+                    xmlNodeList = xmlDocument.GetElementsByTagName("Subject");
+                    foreach (XmlNode item in xmlNodeList)
+                    {
+                        AllSubjects.Add(item.InnerText);
+                    }
+                    fs.Close();
                 }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -54,9 +62,16 @@ namespace StudyNotes
         {
             var serializer = new XmlSerializer(typeof(List<string>));
 
-            using (var stream = File.Open(startupPath, FileMode.Create))
+            try
             {
-                serializer.Serialize(stream, AllSubjects);
+                using (var stream = File.Open(startupPath, FileMode.Create))
+                {
+                    serializer.Serialize(stream, AllSubjects);
+                    stream.Close();
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
             //XmlSerializer serializer = new XmlSerializer(typeof());
