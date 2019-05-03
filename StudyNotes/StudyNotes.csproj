@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LocalData.cs" />
     <Compile Include="ModifySubjectListWindow.xaml.cs">
       <DependentUpon>ModifySubjectListWindow.xaml</DependentUpon>
     </Compile>
@@ -1144,7 +1145,6 @@
     <Resource Include="app_icons\logo_icon.ico" />
     <Content Include="SubjectList.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

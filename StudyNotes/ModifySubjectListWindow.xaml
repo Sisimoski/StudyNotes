@@ -16,7 +16,7 @@
                 <Button Name="DeleteSubjectButton" Click="DeleteSubjectButton_Click">Usuń przedmiot</Button>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left">
-                <ListBox x:Name="SubjectList" Margin="0,0,0,0" ItemsSource="{Binding Source={StaticResource SubjectData}}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="175" SelectionChanged="SubjectList_SelectionChanged"></ListBox>
+                <ListBox x:Name="SubjectList" Margin="0,0,0,0" ItemsSource="{Binding}" DisplayMemberPath="Subject" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="170"/>
                 <TextBox x:Name="InputNewSubject" Text="Wpisz nowy przedmiot..."/>
             </StackPanel>
         </DockPanel>

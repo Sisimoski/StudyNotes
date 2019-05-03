@@ -19,20 +19,20 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-        <Border Grid.Column="0" Background="#FFDDEFFF" BorderBrush="#FFADBECD" BorderThickness="1" CornerRadius="3"/>
+        <Border Grid.Column="0" Background="#FFEEF5FD" BorderBrush="#FFADBECD" BorderThickness="1" CornerRadius="3"/>
         <ListBox x:Name="NotesList" Margin="10,86,10,10.5" SelectionChanged="NotesList_SelectionChanged"/>
         <TextBox x:Name="SearchBox" Height="23" Margin="10,10,60,0" TextWrapping="Wrap" Text="Szukaj notatek..." VerticalAlignment="Top"/>
-        <Button x:Name="NewNoteButton" Margin="0,10,35,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="NewNoteButton_Click">
+        <Button x:Name="NewNoteButton" Margin="0,10,35,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="NewNoteButton_Click" ToolTip="Nowa notatka">
             <Image Source="/icons/page_add.png" Stretch="None"></Image>
         </Button>
-        <Button x:Name="DeleteNoteButton" Margin="0,10,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+        <Button x:Name="DeleteNoteButton" Margin="0,10,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Usuń notatkę">
             <Image Source="/icons/page_delete.png" Stretch="None"></Image>
         </Button>
         <Label Content="Wybierz przedmiot:" Margin="10,33,10.5,0" Foreground="Black" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1,0,0,0"/>
         <ComboBox x:Name="SelectSubject" Margin="10,59,35,0" Height="22" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource SubjectData}, XPath=/Subjects/Subject}" SelectedIndex="0" SelectionChanged="SelectSubject_SelectionChanged">
             <!--<Button x:Name="ModifySubjectListButton" Content="Modyfikuj listę przedmiotów..." Width="195" Click="ModifySubjectListButton_Click"/>-->
         </ComboBox>
-        <Button x:Name="ModifySubjectListButton" Margin="0,58,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ModifySubjectListButton_Click">
+        <Button x:Name="ModifySubjectListButton" Margin="0,58,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="20" BorderThickness="0" Background="Transparent" BorderBrush="Transparent" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="ModifySubjectListButton_Click" ToolTip="Modyfikuj listę przedmiotów">
             <Image Source="/icons/folder_edit.png" Stretch="None"></Image>
         </Button>
         <DockPanel Grid.Column="2" Margin="0">
@@ -42,13 +42,13 @@
                     <ComboBox Name="fontFamilySelector" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged"/>
                     <ComboBox Name="fontSizeSelector" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged"/>
                     <Separator/>
-                    <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
+                    <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold" ToolTip="Pogrubienie">
                         <Image Source="/icons/text_bold.png" Width="16" Height="16" />
                     </ToggleButton>
-                    <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
+                    <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic" ToolTip="Kursywa">
                         <Image Source="/icons/text_italic.png" Width="16" Height="16" />
                     </ToggleButton>
-                    <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
+                    <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline" ToolTip="Podkreślenie">
                         <Image Source="/icons/text_underline.png" Width="16" Height="16" />
                     </ToggleButton>
                 </ToolBar>
